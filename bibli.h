@@ -6,3 +6,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+
+//.h files
+#include "Cell.h"
+#include "Grid.h"
+#include "Display.h"

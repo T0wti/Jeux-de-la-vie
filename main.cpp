@@ -2,7 +2,7 @@
 
 int main() {
     try {
-        int rows = 20, cols = 20, cellSize = 20, generations = 100, delayMs = 200;
+        int rows = 20, cols = 20, cellSize = 20, generations = 100, delayMs = 500; //500 pour mieux voir
         std::cout << "Entrez le chemin vers le fichier d'initialisation : ";
         std::string filename;
         std::cin >> filename;

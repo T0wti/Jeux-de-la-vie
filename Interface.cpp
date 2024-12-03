@@ -6,25 +6,20 @@
 #include <cstdlib>
 #include <ctime>
 
-/*void Interface::display(Grid &g) const {
-    for (int i=0; i<g.getRows();i++) {
-        for (int j=0; j<g.getCols();j++) {
-            std::cout << (g.getGrid(i,j).getState() ? "1" : "0") << " ";
-        }
-        std::cout << "\n";
-    }
-    std::cout << "\n";
-}*/
+Interface::Interface(int m, int generations) : m(m), generations(generations) {}
 
-Interface::Interface(int m) : m(m) {}
+void Interface::redirectMode(Grid &g) {
+    if (m == 0) {displayTerminal(g);}
+    if (m == 1) {displaySFML(g);}
+}
 
-void Interface::display(Grid &g) const {
-    if (m == 0) {
+void Interface::displayTerminal(Grid &g) const {
     // Vérifiez la taille de la grille
     int rows = g.getRows();
     int cols = g.getCols();
     std::cout << "Grille de taille " << rows << "x" << cols << " :\n";
 
+    for (int i=0; i<generations; i++) {
     // Parcours de la grille
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
@@ -35,27 +30,31 @@ void Interface::display(Grid &g) const {
         std::cout << "\n"; // Fin de ligne pour chaque ligne de la grille
     }
     std::cout << "\n"; // Ligne vide après avoir affiché la grille
+    g.update();
     }
-    if (m == 1) {
+}
+
+void Interface::displaySFML(Grid &g) const {
 
 bool isWindowOpen = false;
 
 sf::RenderWindow window; // Déclaration en dehors du bloc conditionnel
+
 
 if (!isWindowOpen) {
     // Initialiser la fenêtre
     window.create(sf::VideoMode(g.getTotalGrid()[0].size() * g.getCellSize(),g.getTotalGrid().size() * g.getCellSize()), "Game of Life");
     isWindowOpen = true; // Marquer qu'une fenêtre est ouverte
 }
+for (int i=0; i<generations; i++) {
 
-while (window.isOpen()) {
-    sf::Event event;
-    while (window.pollEvent(event)) {
-        if (event.type == sf::Event::Closed) {
-            window.close();
-            isWindowOpen = false; // Réinitialiser l'indicateur
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                window.close();
+            }
         }
-    }
 
     window.clear();
 
@@ -70,8 +69,10 @@ while (window.isOpen()) {
         }
     }
 
+    std::cout<<i;
     window.display();
+    g.update();
     sf::sleep(sf::milliseconds(500));
-}
+    }
 }
 }

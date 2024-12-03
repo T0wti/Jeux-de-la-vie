@@ -9,10 +9,14 @@
 
 class Interface {
 protected:
-public:
+    int generations;
     int m;
-    Interface(int mode);
-    void display(Grid &g) const;
+public:
+    void redirectMode(Grid &g);
+    Interface(int mode, int generations);
+    void displayTerminal(Grid &g) const;
+    void displaySFML(Grid &g) const;
+
 };
 
 #endif // INTERFACE_H

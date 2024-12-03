@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Grid.h"
+#include "Interface.h"
 
 int main() {
     try {
@@ -7,16 +8,17 @@ int main() {
         std::cout << "Entrez le chemin complet du fichier : ";
         std::cin >> filePath;
 
-        Grid gameGrid; // La taille sera déterminée par le fichier
+        Grid gameGrid(5,5); // La taille sera déterminée par le fichier
+        Interface terminal;
         gameGrid.loadFromFile(filePath);
 
         std::cout << "Grille initiale :\n";
-        gameGrid.display();
+        terminal.display(gameGrid);
 
         for (int i = 0; i < 10; ++i) {
             std::cout << "Generation " << i + 1 << ":\n";
             gameGrid.update();
-            gameGrid.display();
+            terminal.display(gameGrid);
         }
 
     } catch (const std::exception& e) {

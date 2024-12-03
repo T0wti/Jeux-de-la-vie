@@ -7,7 +7,7 @@
 #include <string>
 
 class Grid {
-private:
+protected:
     std::vector<std::vector<Cell>> grid;
     int rows, cols;
 
@@ -19,6 +19,9 @@ public:
     void loadFromFile(const std::string& filename);
     void display() const;
     void update();
+    int getRows();
+    int getCols();
+    const Cell& getGrid(int x, int y) const;
 };
 
 #endif // GRID_H

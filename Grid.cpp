@@ -9,6 +9,17 @@ Grid::Grid(int r, int c) : rows(r), cols(c), grid(r, std::vector<Cell>(c)) {}
 #include <fstream>
 #include <stdexcept> // Pour gérer les exceptions
 
+int Grid::getRows() {
+    return rows;
+}
+int Grid::getCols() {
+    return cols;
+}
+
+const Cell& Grid::getGrid(int x, int y) const {
+    return grid[x][y];
+}
+
 void Grid::loadFromFile(const std::string& filename) {
     std::ifstream inputFile(filename);
     if (!inputFile) {
@@ -43,17 +54,6 @@ void Grid::loadFromFile(const std::string& filename) {
     rows = newGrid.size();
     cols = cols;
     grid = std::move(newGrid);
-}
-
-
-void Grid::display() const {
-    for (const auto& row : grid) {
-        for (const auto& cell : row) {
-            std::cout << (cell.getState() ? "1" : "0") << " ";
-        }
-        std::cout << "\n";
-    }
-    std::cout << "\n";
 }
 
 int Grid::countAliveNeighbors(int x, int y) const {

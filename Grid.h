@@ -9,7 +9,7 @@
 class Grid {
 protected:
     std::vector<std::vector<Cell>> grid;
-    int rows, cols;
+    int rows, cols, cellSize;
 
     int countAliveNeighbors(int x, int y) const;
 
@@ -17,11 +17,12 @@ public:
     Grid();
     Grid(int r, int c);
     void loadFromFile(const std::string& filename);
-    void display() const;
     void update();
     int getRows();
     int getCols();
+    int getCellSize();
     const Cell& getGrid(int x, int y) const;
+    const std::vector<std::vector<Cell>>getTotalGrid() const;
 };
 
 #endif // GRID_H

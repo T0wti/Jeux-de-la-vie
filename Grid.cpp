@@ -3,8 +3,8 @@
 #include <cstdlib>
 #include <ctime>
 
-Grid::Grid() : rows(0), cols(0), grid() {} // Constructeur par défaut
-Grid::Grid(int r, int c) : rows(r), cols(c), grid(r, std::vector<Cell>(c)) {}
+Grid::Grid() : rows(0), cols(0), cellSize(20), grid() {} // Constructeur par défaut
+Grid::Grid(int r, int c) : rows(r), cols(c), cellSize(20), grid(r, std::vector<Cell>(c)) {}
 
 #include <fstream>
 #include <stdexcept> // Pour gérer les exceptions
@@ -18,6 +18,12 @@ int Grid::getCols() {
 
 const Cell& Grid::getGrid(int x, int y) const {
     return grid[x][y];
+}
+int Grid::getCellSize() {
+    return cellSize;
+}
+const std::vector<std::vector<Cell>> Grid::getTotalGrid() const {
+    return grid;
 }
 
 void Grid::loadFromFile(const std::string& filename) {

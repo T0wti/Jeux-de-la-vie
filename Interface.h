@@ -8,7 +8,10 @@
 #include <string>
 
 class Interface {
+protected:
 public:
+    int m;
+    Interface(int mode);
     void display(Grid &g) const;
 };
 

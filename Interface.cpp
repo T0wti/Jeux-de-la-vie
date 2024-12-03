@@ -37,6 +37,7 @@ void Interface::displayTerminal(Grid &g) const {
 void Interface::displaySFML(Grid &g) const {
 
 bool isWindowOpen = false;
+int it = 0;
 
 sf::RenderWindow window; // Déclaration en dehors du bloc conditionnel
 
@@ -46,9 +47,7 @@ if (!isWindowOpen) {
     window.create(sf::VideoMode(g.getTotalGrid()[0].size() * g.getCellSize(),g.getTotalGrid().size() * g.getCellSize()), "Game of Life");
     isWindowOpen = true; // Marquer qu'une fenêtre est ouverte
 }
-for (int i=0; i<generations; i++) {
-
-    while (window.isOpen()) {
+    while (window.isOpen()&& it<generations) {
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
@@ -68,11 +67,9 @@ for (int i=0; i<generations; i++) {
             window.draw(cellShape);
         }
     }
-
-    std::cout<<i;
+    it += 1;
     window.display();
     g.update();
     sf::sleep(sf::milliseconds(500));
     }
-}
 }

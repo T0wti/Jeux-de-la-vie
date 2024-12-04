@@ -4,24 +4,18 @@
 #include "Save.h"
 
 int main() {
-    try {
-        Interface terminal;
-        Grid gameGrid(5,5); // La taille sera déterminée par le fichier
-        Save saver;
+    Interface terminal;
+    Grid gameGrid(5,5); // La taille sera déterminée par le fichier
+    Save saver;
 
-        terminal.typeMode();
-        terminal.typeGenerations();
-        std::string filePath;
-        std::cout << "\nEntrez le chemin complet du fichier : ";
-        std::cin >> filePath;
+    terminal.typeMode();
+    terminal.typeGenerations();
+    std::string filePath;
+    std::cout << "\nEntrez le chemin complet du fichier : ";
+    std::cin >> filePath;
 
-        gameGrid.initializeFromFile(filePath, saver);
-        terminal.redirectMode(gameGrid);
-
-    } catch (const std::exception& e) {
-        std::cerr << "Erreur : " << e.what() << "\n";
-        return 1;
-    }
+    gameGrid.initializeFromFile(filePath, saver);
+    terminal.redirectMode(gameGrid);
 
     return 0;
 }

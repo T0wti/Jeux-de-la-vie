@@ -21,6 +21,8 @@ add_executable(Jeux-de-la-vie main.cpp
         Rules.h
         Save.cpp
         Save.h
+        Interface.cpp
+        Interface.h
 )
 
 target_link_libraries(Jeux-de-la-vie sfml-graphics)

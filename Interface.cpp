@@ -79,12 +79,11 @@ if (!isWindowOpen) {
     window.clear();
 
     // Dessiner les cellules
-    Grid g2(g);
-    for (int i = 0; i < g2.getRows(); ++i) {
-        for (int j = 0; j < g2.getCols(); ++j) {
-            sf::RectangleShape cellShape(sf::Vector2f(g2.getCellSize() - 1, g2.getCellSize() - 1));
-            cellShape.setPosition(j * g2.getCellSize(), i * g2.getCellSize());
-            cellShape.setFillColor(g2.getGrid(i, j).getState() ? sf::Color(2, 58, 102) : sf::Color(255, 249, 177));
+    for (int i = 0; i < g.getRows(); ++i) {
+        for (int j = 0; j < g.getCols(); ++j) {
+            sf::RectangleShape cellShape(sf::Vector2f(g.getCellSize() - 1, g.getCellSize() - 1));
+            cellShape.setPosition(j * g.getCellSize(), i * g.getCellSize());
+            cellShape.setFillColor(g.getGrid(i, j).getState() ? sf::Color(2, 58, 102) : sf::Color(255, 249, 177));
             window.draw(cellShape);
         }
     }

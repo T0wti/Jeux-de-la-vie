@@ -18,6 +18,18 @@ int Grid::getCols() {
     return cols;
 }
 
+void Grid::setRows(int r) {
+    rows = r;
+}
+
+void Grid::setCols(int c) {
+    cols = c;
+}
+void Grid::setTotalGrid(std::vector<std::vector<Cell>> g) {
+    grid = std::move(g);
+}
+
+
 const Cell& Grid::getGrid(int x, int y) const {
     return grid[x][y];
 }
@@ -26,10 +38,6 @@ int Grid::getCellSize() {
 }
 const std::vector<std::vector<Cell>> Grid::getTotalGrid() const {
     return grid;
-}
-
-void Grid::initializeFromFile(const std::string& filename, Save &s) {
-    s.loadFromFile(filename, grid, rows, cols); // Appel de la méthode loadFromFile
 }
 
 int Grid::countAliveNeighbors(int x, int y) const {

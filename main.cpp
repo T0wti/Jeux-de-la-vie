@@ -10,11 +10,9 @@ int main() {
 
     terminal.typeMode();
     terminal.typeGenerations();
-    std::string filePath;
-    std::cout << "\nEntrez le chemin complet du fichier : ";
-    std::cin >> filePath;
+    saver.typeFilePath(); //Fonction pour entrer le chemin d'accès de la grille de départ
 
-    gameGrid.initializeFromFile(filePath, saver);
+    saver.initializeFromFile(gameGrid);
     terminal.redirectMode(gameGrid);
 
     return 0;

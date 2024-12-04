@@ -1,11 +1,19 @@
 #include "Save.h"
+#include <iostream>
 #include <fstream>
 #include <stdexcept>
 
-void Save::loadFromFile(const std::string& filename, std::vector<std::vector<Cell>>& grid, int& rows, int& cols) {
-    std::ifstream inputFile(filename);
+void Save::setFilePath(std::string& filename) {
+    filePath = filename;
+}
+void Save::typeFilePath() {
+    std::cout << "\nEntrez le chemin complet du fichier : ";
+    std::cin >> filePath;
+}
+void Save::initializeFromFile(Grid &g) {
+    std::ifstream inputFile(filePath);
     if (!inputFile) {
-        throw std::runtime_error("Impossible d'ouvrir le fichier : " + filename);
+        throw std::runtime_error("Impossible d'ouvrir le fichier : " + filePath);
     }
 
     std::vector<std::vector<Cell>> newGrid;
@@ -29,13 +37,13 @@ void Save::loadFromFile(const std::string& filename, std::vector<std::vector<Cel
     size_t colsInFile = newGrid[0].size();
     //for (const auto& row : newGrid) {
         //if (row.size() != colsInFile) {
-            //throw std::runtime_error("Grille non rectangulaire dans le fichier : " + filename);
+            //throw std::runtime_error("Grille non rectangulaire dans le fichier : " + filePath);
         //}
 
 
     // Mettre à jour les dimensions et la grille
-    rows = newGrid.size();
-    cols = colsInFile;
-    grid = std::move(newGrid);
+    g.setRows(newGrid.size());
+    g.setCols(colsInFile);
+    g.setTotalGrid(newGrid);
 }
 

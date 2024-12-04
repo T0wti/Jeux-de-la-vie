@@ -7,7 +7,7 @@ void Save::setFilePath(std::string& filename) {
     filePath = filename;
 }
 void Save::typeFilePath() {
-    std::cout << "\nEntrez le chemin complet du fichier : ";
+    std::cout << "\nEntrez le chemin complet vers la matrice de départ : ";
     std::cin >> filePath;
 }
 void Save::setSaveFilePath(std::string& f) {
@@ -61,7 +61,7 @@ void Save::initializeFromFile(Grid &g) {
 void Save::saveFile(Grid &g,int gen) {
 
     // Ajouter le nouveau fichier
-    std::string newFileName = "save_" + std::to_string(gen) + ".txt";
+    std::string newFileName = "/save_" + std::to_string(gen) + ".txt";
 
     // Retourner le nouveau chemin complet
     saveFilePath =  directoryPath + newFileName;

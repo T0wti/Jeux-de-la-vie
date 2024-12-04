@@ -15,9 +15,15 @@ void Save::initializeFromFile(Grid &g) {
     if (!inputFile) {
         throw std::runtime_error("Impossible d'ouvrir le fichier : " + filePath);
     }
+    int r, c;
+    inputFile >> r >> c;
+    g.setRows(r);
+    g.setCols(c);
+    // Suppression de la première ligne qui contient les dimensions (r et c)
+    std::string line;
+    std::getline(inputFile, line);  // Cela lit et ignore la première ligne du fichier
 
     std::vector<std::vector<Cell>> newGrid;
-    std::string line;
 
     while (std::getline(inputFile, line)) {
         std::vector<Cell> row;
@@ -41,9 +47,7 @@ void Save::initializeFromFile(Grid &g) {
         //}
 
 
-    // Mettre à jour les dimensions et la grille
-    g.setRows(newGrid.size());
-    g.setCols(colsInFile);
+    // Mettre à jour la grille
     g.setTotalGrid(newGrid);
 }
 

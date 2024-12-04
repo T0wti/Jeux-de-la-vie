@@ -7,20 +7,20 @@ void Save::setFilePath(std::string& filename) {
     filePath = filename;
 }
 void Save::typeFilePath() {
-    std::cout << "\nEntrez le chemin complet vers la matrice de départ : ";
+    std::cout << "\nType the complete path to the initialization file : ";
     std::cin >> filePath;
 }
 void Save::setSaveFilePath(std::string& f) {
     directoryPath = f;
 }
 void Save::typeSaveFilePath() {
-    std::cout <<"\nEntrez le chemin complet vers le dossier de sauvegarde :";
+    std::cout <<"\nType the complete path to the save's folder :";
     std::cin >> directoryPath;
 }
 void Save::initializeFromFile(Grid &g) {
     std::ifstream inputFile(filePath);
     if (!inputFile) {
-        throw std::runtime_error("Impossible d'ouvrir le fichier : " + filePath);
+        throw std::runtime_error("Can't open the file : " + filePath);
     }
     int r, c;
     inputFile >> r >> c;

@@ -21,11 +21,11 @@ void Interface::setMode(int m) {
     mode = m;
 }
 void Interface::typeGenerations() {
-    std::cout<<"\nEntrer le nombre de générations voulu : ";
+    std::cout<<"\nType the number of generations wanted : ";
     std::cin>>generations;
 }
 void Interface::typeMode() {
-    std::cout<<"\nTaper le numéro d'affichage voulu, 0 pour terminal, 1 pour SFML : ";
+    std::cout<<"\nType the display number wanted, 0 for terminal, 1 for SFML : ";
     std::cin >> mode;
 }
 

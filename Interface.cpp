@@ -29,12 +29,12 @@ void Interface::typeMode() {
     std::cin >> mode;
 }
 
-void Interface::redirectMode(Grid &g) {
-    if (mode == 0) {displayTerminal(g);}
-    if (mode == 1) {displaySFML(g);}
+void Interface::redirectMode(Grid &g, Save &s) {
+    if (mode == 0) {displayTerminal(g, s);}
+    if (mode == 1) {displaySFML(g, s);}
 }
 
-void Interface::displayTerminal(Grid &g) const {
+void Interface::displayTerminal(Grid &g, Save &s) const {
     // Vérifiez la taille de la grille
     int rows = g.getRows();
     int cols = g.getCols();
@@ -51,11 +51,12 @@ void Interface::displayTerminal(Grid &g) const {
         std::cout << "\n"; // Fin de ligne pour chaque ligne de la grille
     }
     std::cout << "\n"; // Ligne vide après avoir affiché la grille
+    s.saveFile(g,generations);
     g.update();
     }
 }
 
-void Interface::displaySFML(Grid &g) const {
+void Interface::displaySFML(Grid &g, Save &s) const {
 
 bool isWindowOpen = false;
 int it = 0;
@@ -89,6 +90,7 @@ if (!isWindowOpen) {
     }
     it += 1;
     window.display();
+    s.saveFile(g,generations);
     g.update();
     sf::sleep(sf::milliseconds(500));
     }

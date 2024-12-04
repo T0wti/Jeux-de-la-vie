@@ -10,6 +10,13 @@ void Save::typeFilePath() {
     std::cout << "\nEntrez le chemin complet du fichier : ";
     std::cin >> filePath;
 }
+void Save::setSaveFilePath(std::string& f) {
+    directoryPath = f;
+}
+void Save::typeSaveFilePath() {
+    std::cout <<"\nEntrez le chemin complet vers le dossier de sauvegarde :";
+    std::cin >> directoryPath;
+}
 void Save::initializeFromFile(Grid &g) {
     std::ifstream inputFile(filePath);
     if (!inputFile) {
@@ -51,3 +58,31 @@ void Save::initializeFromFile(Grid &g) {
     g.setTotalGrid(newGrid);
 }
 
+void Save::saveFile(Grid &g,int gen) {
+
+    // Ajouter le nouveau fichier
+    std::string newFileName = "save_" + std::to_string(gen) + ".txt";
+
+    // Retourner le nouveau chemin complet
+    saveFilePath =  directoryPath + newFileName;
+
+    std::ofstream outputFile(saveFilePath);
+    if (!outputFile) {
+        throw std::runtime_error("Impossible de créer ou d'ouvrir le fichier pour l'écriture : " + filePath);
+    }
+// Écrire les dimensions de la grille (rows et cols)
+    outputFile << g.getRows() << " " << g.getCols() << "\n";
+// Écriture de la matrice du jeu
+    const auto& grid = g.getTotalGrid(); // Récupère la grille sous forme de std::vector<std::vector<Cell>>
+    for (const auto& row : grid) {
+        for (const auto& cell : row) {
+            outputFile << (cell.getState() ? '1' : '0'); // Cellule vivante -> '1', morte -> '0'
+        }
+        outputFile << "\n"; // Fin de la ligne
+        }
+    outputFile.close(); // Fermer le fichier
+    if (!outputFile) {
+        throw std::runtime_error("Erreur lors de l'écriture dans le fichier : " + filePath);
+    }
+
+}

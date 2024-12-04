@@ -11,9 +11,10 @@ int main() {
     terminal.typeMode();
     terminal.typeGenerations();
     saver.typeFilePath(); //Fonction pour entrer le chemin d'accès de la grille de départ
+    saver.typeSaveFilePath();
 
     saver.initializeFromFile(gameGrid);
-    terminal.redirectMode(gameGrid);
+    terminal.redirectMode(gameGrid, saver);
 
     return 0;
 }

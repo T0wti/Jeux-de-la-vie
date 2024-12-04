@@ -10,13 +10,18 @@
 class Interface {
 protected:
     int generations;
-    int m;
+    int mode;
 public:
     void redirectMode(Grid &g);
-    Interface(int mode, int generations);
+    Interface();
     void displayTerminal(Grid &g) const;
     void displaySFML(Grid &g) const;
-
+    int getGenerations() const;
+    int getMode() const;
+    void setGenerations(int gen);
+    void setMode(int m);
+    void typeGenerations();
+    void typeMode();
 };
 
 #endif // INTERFACE_H

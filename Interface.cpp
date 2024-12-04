@@ -6,11 +6,32 @@
 #include <cstdlib>
 #include <ctime>
 
-Interface::Interface(int m, int generations) : m(m), generations(generations) {}
+Interface::Interface() : mode(0), generations(10) {}
+
+int Interface::getGenerations() const {
+    return generations;
+}
+int Interface::getMode() const {
+    return mode;
+}
+void Interface::setGenerations(int gen) {
+    generations = gen;
+}
+void Interface::setMode(int m) {
+    mode = m;
+}
+void Interface::typeGenerations() {
+    std::cout<<"\nEntrer le nombre de générations voulu : ";
+    std::cin>>generations;
+}
+void Interface::typeMode() {
+    std::cout<<"\nTaper le numéro d'affichage voulu, 0 pour terminal, 1 pour SFML : ";
+    std::cin >> mode;
+}
 
 void Interface::redirectMode(Grid &g) {
-    if (m == 0) {displayTerminal(g);}
-    if (m == 1) {displaySFML(g);}
+    if (mode == 0) {displayTerminal(g);}
+    if (mode == 1) {displaySFML(g);}
 }
 
 void Interface::displayTerminal(Grid &g) const {

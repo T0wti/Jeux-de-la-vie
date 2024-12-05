@@ -45,9 +45,11 @@ int Grid::countAliveNeighbors(int x, int y) const {
     for (int dx = -1; dx <= 1; ++dx) {
         for (int dy = -1; dy <= 1; ++dy) {
             if (dx == 0 && dy == 0) continue; // Ignorer la cellule elle-même
-            int nx = x + dx, ny = y + dy;
-            // Vérifier si les coordonnées sont dans les limites
-            if (nx >= 0 && nx < rows && ny >= 0 && ny < cols && grid[nx][ny].getState()) {
+            int nx = (x + dx + rows) % rows;
+            int ny = (y + dy + cols) % cols;
+
+            // Vérifier si le voisin est vivant
+            if (grid[nx][ny].getState()) {
                 ++aliveCount;
             }
         }

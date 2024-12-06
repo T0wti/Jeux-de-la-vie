@@ -9,8 +9,7 @@ Grid::Grid() : rows(0), cols(0), cellSize(20), grid() {} // Constructeur par dé
 Grid::Grid(int r, int c) : rows(r), cols(c), cellSize(20), grid(r, std::vector<Cell>(c)) {}
 
 #include <fstream>
-#include <stdexcept> // Pour gérer les exceptions
-
+#include <stdexcept> // Pour gérer les exceptio
 int Grid::getRows() {
     return rows;
 }
@@ -42,11 +41,14 @@ const std::vector<std::vector<Cell>> Grid::getTotalGrid() const {
 
 int Grid::countAliveNeighbors(int x, int y) const {
     int aliveCount = 0;
+
     for (int dx = -1; dx <= 1; ++dx) {
         for (int dy = -1; dy <= 1; ++dy) {
             if (dx == 0 && dy == 0) continue; // Ignorer la cellule elle-même
-            int nx = (x + dx + rows) % rows;
-            int ny = (y + dy + cols) % cols;
+
+            // Calcul des coordonnées en mode torique
+            int nx = (x + dx + rows) % rows; // % rows pour boucler verticalement
+            int ny = (y + dy + cols) % cols; // % cols pour boucler horizontalement
 
             // Vérifier si le voisin est vivant
             if (grid[nx][ny].getState()) {
@@ -54,6 +56,7 @@ int Grid::countAliveNeighbors(int x, int y) const {
             }
         }
     }
+
     return aliveCount;
 }
 
@@ -63,6 +66,11 @@ void Grid::update() {
 
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
+            // Ne pas mettre à jour les obstacles
+            if (grid[i][j].getIsObstacle()) {
+                continue;  // Si la cellule est un obstacle, sa mise à jour est ignorée
+            }
+
             int aliveNeighbors = countAliveNeighbors(i, j); // Nombre de voisins vivants
             bool newState = rule.applyRules(grid[i][j], aliveNeighbors); // Appliquer les règles
             newGrid[i][j].setAlive(newState); // Mettre à jour l'état dans la nouvelle grille
@@ -71,4 +79,3 @@ void Grid::update() {
 
     grid = std::move(newGrid); // Assigner la nouvelle grille à la grille principale
 }
-

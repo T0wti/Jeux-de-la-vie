@@ -3,8 +3,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <iostream>
-#include <cstdlib>
-#include <ctime>
+
 
 Interface::Interface() : mode(0), generations(10) {}
 
@@ -84,7 +83,13 @@ if (!isWindowOpen) {
         for (int j = 0; j < g.getCols(); ++j) {
             sf::RectangleShape cellShape(sf::Vector2f(g.getCellSize() - 1, g.getCellSize() - 1));
             cellShape.setPosition(j * g.getCellSize(), i * g.getCellSize());
-            cellShape.setFillColor(g.getGrid(i, j).getState() ? sf::Color(2, 58, 102) : sf::Color(255, 249, 177));
+
+            // Appliquer une couleur spéciale pour les obstacles
+            if (g.getGrid(i, j).getIsObstacle()) {
+                cellShape.setFillColor(g.getGrid(i, j).getState() ? sf::Color(150, 150, 150) : sf::Color(100, 100, 100));
+            } else {
+                cellShape.setFillColor(g.getGrid(i, j).getState() ? sf::Color(2, 58, 102) : sf::Color(255, 249, 177));
+            }
             window.draw(cellShape);
         }
     }

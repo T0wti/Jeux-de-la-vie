@@ -39,6 +39,10 @@ void Save::initializeFromFile(Grid &g) {
                 row.emplace_back(Cell(false)); // Cellule morte
             } else if (ch == '1') {
                 row.emplace_back(Cell(true)); // Cellule vivante
+            } else if (ch == '2') {
+                row.emplace_back(Cell(false, true)); // Cellule obstacle morte
+            } else if (ch == '3') {
+                row.emplace_back(Cell(true, true)); // Cellule obstacle vivante
             }
         }
         if (!row.empty()) {
@@ -76,7 +80,11 @@ void Save::saveFile(Grid &g,int gen) {
     const auto& grid = g.getTotalGrid(); // Récupère la grille sous forme de std::vector<std::vector<Cell>>
     for (const auto& row : grid) {
         for (const auto& cell : row) {
-            outputFile << (cell.getState() ? '1' : '0'); // Cellule vivante -> '1', morte -> '0'
+            if (cell.getIsObstacle()) {
+                outputFile << (cell.getState() ? '3' : '2');  // Si c'est un obstacle, '3' pour vivant, '2' pour mort
+            } else {
+                outputFile << (cell.getState() ? '1' : '0'); // Cellule vivante -> '1', morte -> '0'
+            }
         }
         outputFile << "\n"; // Fin de la ligne
         }

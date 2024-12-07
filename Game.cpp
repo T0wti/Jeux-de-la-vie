@@ -1,4 +1,4 @@
-#include "Interface.h"
+#include "Game.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
@@ -7,24 +7,24 @@
 #include <chrono>
 
 
-Interface::Interface() : mode(0), generations(10), delay(500) {}
+Game::Game() : mode(0), generations(10), delay(500) {}
 
-int Interface::getGenerations() const {
+int Game::getGenerations() const {
     return generations;
 }
-int Interface::getMode() const {
+int Game::getMode() const {
     return mode;
 }
-void Interface::setGenerations(int gen) {
+void Game::setGenerations(int gen) {
     generations = gen;
 }
-void Interface::setMode(int m) {
+void Game::setMode(int m) {
     mode = m;
 }
-void Interface::setDelay(int d) {
+void Game::setDelay(int d) {
     delay = d;
 }
-void Interface::typeGenerations() {
+void Game::typeGenerations() {
     int tempgen;
     bool correctgen = false;
     std::cout << "\nType the number of generations wanted: ";
@@ -49,7 +49,7 @@ void Interface::typeGenerations() {
     }
 }
 
-void Interface::typeMode() {
+void Game::typeMode() {
     int tempmode;
     bool correctmode = false;
     std::cout << "\nType the display number wanted, 0 for terminal, 1 for SFML: ";
@@ -73,7 +73,7 @@ void Interface::typeMode() {
         }
     }
 }
-void Interface::typeDelay() {
+void Game::typeDelay() {
     int delaytemp;
     bool correctdelay = false;
     std::cout << "\nType the delay between 2 iterations (in milliseconds): ";
@@ -99,12 +99,12 @@ void Interface::typeDelay() {
     }
 }
 
-void Interface::redirectMode(Grid &g, Save &s) {
+void Game::redirectMode(Grid &g, File_manager &s) {
     if (mode == 0) {displayTerminal(g, s);}
     if (mode == 1) {displaySFML(g, s);}
 }
 
-void Interface::displayTerminal(Grid &g, Save &s) const {
+void Game::displayTerminal(Grid &g, File_manager &s) const {
     // Check the grid's size
     int rows = g.getRows();
     int cols = g.getCols();
@@ -127,7 +127,7 @@ void Interface::displayTerminal(Grid &g, Save &s) const {
     }
 }
 
-void Interface::displaySFML(Grid &g, Save &s) const {
+void Game::displaySFML(Grid &g, File_manager &s) const {
 
 bool isWindowOpen = false;
 int it = 0;

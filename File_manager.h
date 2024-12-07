@@ -6,7 +6,7 @@
 #include <vector>
 #include <string>
 
-class Save {
+class File_manager {
     protected:
     std::string filePath;
     std::string saveFilePath;

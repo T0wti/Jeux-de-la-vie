@@ -1,12 +1,12 @@
 #include <iostream>
 #include "Grid.h"
-#include "Interface.h"
-#include "Save.h"
+#include "Game.h"
+#include "File_manager.h"
 
 int main() {
-    Interface terminal;
+    Game terminal;
     Grid gameGrid(5,5); // The size will be set according to the initialization file
-    Save saver;
+    File_manager saver;
 
     terminal.typeMode();
     terminal.typeGenerations();

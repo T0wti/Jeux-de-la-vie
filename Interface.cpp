@@ -50,7 +50,6 @@ void Interface::displayTerminal(Grid &g, Save &s) const {
         std::cout << "\n"; // Fin de ligne pour chaque ligne de la grille
     }
     std::cout << "\n"; // Ligne vide après avoir affiché la grille
-    s.saveFile(g,i+1);
     g.update();
     }
 }

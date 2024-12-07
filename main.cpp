@@ -11,10 +11,9 @@ int main() {
     terminal.typeMode();
     terminal.typeGenerations();
     saver.typeFilePath(); //Fonction pour entrer le chemin d'accès de la grille de départ
-    saver.typeSaveFilePath();
-
     saver.initializeFromFile(gameGrid);
     terminal.redirectMode(gameGrid, saver);
+    if (terminal.getMode()==1) {saver.typeSaveFilePath();} //Only ask the path if we are using SFML
 
     return 0;
 }

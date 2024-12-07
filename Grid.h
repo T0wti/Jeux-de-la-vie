@@ -3,7 +3,6 @@
 
 #include "Cell.h"
 #include "Rules.h"
-#include "Save.h"
 #include <vector>
 #include <string>
 
@@ -17,7 +16,9 @@ protected:
 public:
     Grid();
     Grid(int r, int c);
-    void initializeFromFile(const std::string& filename, Save &s);
+    void setRows(int r);
+    void setCols(int c);
+    void setTotalGrid(std::vector<std::vector<Cell>> g);
     void update();
     int getRows();
     int getCols();

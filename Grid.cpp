@@ -1,22 +1,33 @@
 #include "Grid.h"
-#include "Save.h"
+#include "File_manager.h"
 
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
 
-Grid::Grid() : rows(0), cols(0), cellSize(20), grid() {} // Constructeur par défaut
+Grid::Grid() : rows(0), cols(0), cellSize(20), grid() {} // Default builder
 Grid::Grid(int r, int c) : rows(r), cols(c), cellSize(20), grid(r, std::vector<Cell>(c)) {}
 
 #include <fstream>
-#include <stdexcept> // Pour gérer les exceptions
-
+#include <stdexcept> // Pour gérer les exceptio
 int Grid::getRows() {
     return rows;
 }
 int Grid::getCols() {
     return cols;
 }
+
+void Grid::setRows(int r) {
+    rows = r;
+}
+
+void Grid::setCols(int c) {
+    cols = c;
+}
+void Grid::setTotalGrid(std::vector<std::vector<Cell>> g) {
+    grid = std::move(g);
+}
+
 
 const Cell& Grid::getGrid(int x, int y) const {
     return grid[x][y];
@@ -28,37 +39,43 @@ const std::vector<std::vector<Cell>> Grid::getTotalGrid() const {
     return grid;
 }
 
-void Grid::initializeFromFile(const std::string& filename, Save &s) {
-    s.loadFromFile(filename, grid, rows, cols); // Appel de la méthode loadFromFile
-}
-
 int Grid::countAliveNeighbors(int x, int y) const {
     int aliveCount = 0;
+
     for (int dx = -1; dx <= 1; ++dx) {
         for (int dy = -1; dy <= 1; ++dy) {
-            if (dx == 0 && dy == 0) continue; // Ignorer la cellule elle-même
-            int nx = x + dx, ny = y + dy;
-            // Vérifier si les coordonnées sont dans les limites
-            if (nx >= 0 && nx < rows && ny >= 0 && ny < cols && grid[nx][ny].getState()) {
+            if (dx == 0 && dy == 0) continue; // Ignore the cell itself
+
+            // Coordinate calculation in toroidal mode
+            int nx = (x + dx + rows) % rows; // % rows pour boucler verticalement
+            int ny = (y + dy + cols) % cols; // % cols pour boucler horizontalement
+
+            // Check if the neighbor is alive
+            if (grid[nx][ny].getState()) {
                 ++aliveCount;
             }
         }
     }
+
     return aliveCount;
 }
 
 void Grid::update() {
     Rules rule;
-    std::vector<std::vector<Cell>> newGrid = grid; // Copie de la grille actuelle
+    std::vector<std::vector<Cell>> newGrid = grid; // Copy of current grid
 
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            int aliveNeighbors = countAliveNeighbors(i, j); // Nombre de voisins vivants
-            bool newState = rule.applyRules(grid[i][j], aliveNeighbors); // Appliquer les règles
-            newGrid[i][j].setAlive(newState); // Mettre à jour l'état dans la nouvelle grille
+            // Don't update obstacles
+            if (grid[i][j].getIsObstacle()) {
+                continue;  // If the cell is an obstacle, its update is ignored.
+            }
+
+            int aliveNeighbors = countAliveNeighbors(i, j); // Number of alive neighbors
+            bool newState = rule.applyRules(grid[i][j], aliveNeighbors); // Applay the rules
+            newGrid[i][j].setAlive(newState); // Update the new state in the new grid
         }
     }
 
-    grid = std::move(newGrid); // Assigner la nouvelle grille à la grille principale
+    grid = std::move(newGrid); // Assign the new grid to the main grid
 }
-

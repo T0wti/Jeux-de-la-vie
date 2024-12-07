@@ -1,28 +1,20 @@
 #include <iostream>
 #include "Grid.h"
-#include "Interface.h"
-#include "Save.h"
+#include "Game.h"
+#include "File_manager.h"
 
 int main() {
-    try {
-        Interface terminal;
-        Grid gameGrid(5,5); // La taille sera déterminée par le fichier
-        Save saver;
+    Game terminal;
+    Grid gameGrid(5,5); // The size will be set according to the initialization file
+    File_manager saver;
 
-        terminal.typeMode();
-        terminal.typeGenerations();
-        std::string filePath;
-        std::cout << "\nEntrez le chemin complet du fichier : ";
-        std::cin >> filePath;
-
-        gameGrid.initializeFromFile(filePath, saver);
-        terminal.redirectMode(gameGrid);
-
-    } catch (const std::exception& e) {
-        std::cerr << "Erreur : " << e.what() << "\n";
-        return 1;
-    }
+    terminal.typeMode();
+    terminal.typeGenerations();
+    terminal.typeDelay();
+    saver.typeFilePath(); //Function to type the initialization file path
+    if (terminal.getMode()==0) {saver.typeSaveFilePath();} //Only ask the path if we are using SFML
+    saver.initializeFromFile(gameGrid);
+    terminal.redirectMode(gameGrid, saver);
 
     return 0;
 }
-

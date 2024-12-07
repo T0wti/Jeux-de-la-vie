@@ -12,7 +12,7 @@ int main() {
     terminal.typeGenerations();
     terminal.typeDelay();
     saver.typeFilePath(); //Function to type the initialization file path
-    if (terminal.getMode()==0) {saver.typeSaveFilePath();} //Only ask the path if we are using SFML
+    if (terminal.getMode()==0) {saver.typeSaveFilePath();} //Only ask the path if we are using the terminal
     saver.initializeFromFile(gameGrid);
     terminal.redirectMode(gameGrid, saver);
 

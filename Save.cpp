@@ -26,9 +26,9 @@ void Save::initializeFromFile(Grid &g) {
     inputFile >> r >> c;
     g.setRows(r);
     g.setCols(c);
-    // Suppression de la première ligne qui contient les dimensions (r et c)
+    // Delete the first line containing the dimensions (r and c)
     std::string line;
-    std::getline(inputFile, line);  // Cela lit et ignore la première ligne du fichier
+    std::getline(inputFile, line);  // Read a line of text from the input file and store it in the 'line' variable
 
     std::vector<std::vector<Cell>> newGrid;
 
@@ -36,13 +36,13 @@ void Save::initializeFromFile(Grid &g) {
         std::vector<Cell> row;
         for (char ch : line) {
             if (ch == '0') {
-                row.emplace_back(Cell(false)); // Cellule morte
+                row.emplace_back(Cell(false)); // Dead cell
             } else if (ch == '1') {
-                row.emplace_back(Cell(true)); // Cellule vivante
+                row.emplace_back(Cell(true)); // Alive cell
             } else if (ch == '2') {
-                row.emplace_back(Cell(false, true)); // Cellule obstacle morte
+                row.emplace_back(Cell(false, true)); // Dead obstacle cell
             } else if (ch == '3') {
-                row.emplace_back(Cell(true, true)); // Cellule obstacle vivante
+                row.emplace_back(Cell(true, true)); // Alive obstacle cell
             }
         }
         if (!row.empty()) {
@@ -50,47 +50,39 @@ void Save::initializeFromFile(Grid &g) {
         }
     }
 
-    // Valider que la grille est rectangulaire
-    size_t colsInFile = newGrid[0].size();
-    //for (const auto& row : newGrid) {
-        //if (row.size() != colsInFile) {
-            //throw std::runtime_error("Grille non rectangulaire dans le fichier : " + filePath);
-        //}
-
-
-    // Mettre à jour la grille
+    // Set the new grid
     g.setTotalGrid(newGrid);
 }
 
 void Save::saveFile(Grid &g,int gen) {
 
-    // Ajouter le nouveau fichier
+    // Make a new save file
     std::string newFileName = "/save_" + std::to_string(gen) + ".txt";
 
-    // Retourner le nouveau chemin complet
+    // Return the save's complete path
     saveFilePath =  directoryPath + newFileName;
 
     std::ofstream outputFile(saveFilePath);
     if (!outputFile) {
-        throw std::runtime_error("Impossible de créer ou d'ouvrir le fichier pour l'écriture : " + filePath);
+        throw std::runtime_error("Unable to create or open file for writing : " + filePath);
     }
-// Écrire les dimensions de la grille (rows et cols)
+// Write the grid dimensions (rows and cols)
     outputFile << g.getRows() << " " << g.getCols() << "\n";
-// Écriture de la matrice du jeu
-    const auto& grid = g.getTotalGrid(); // Récupère la grille sous forme de std::vector<std::vector<Cell>>
+// Writing game's matrix
+    const auto& grid = g.getTotalGrid(); // Get the grid in a std::vector<std::vector<Cell>> form
     for (const auto& row : grid) {
         for (const auto& cell : row) {
             if (cell.getIsObstacle()) {
-                outputFile << (cell.getState() ? '3' : '2');  // Si c'est un obstacle, '3' pour vivant, '2' pour mort
+                outputFile << (cell.getState() ? '3' : '2');  // If it's an obstacle, '3' for alive, '2' for dead
             } else {
-                outputFile << (cell.getState() ? '1' : '0'); // Cellule vivante -> '1', morte -> '0'
+                outputFile << (cell.getState() ? '1' : '0'); // If it's a cell, alive -> '1', dead -> '0
             }
         }
-        outputFile << "\n"; // Fin de la ligne
+        outputFile << "\n"; // End of the line
         }
-    outputFile.close(); // Fermer le fichier
+    outputFile.close(); // Close the file
     if (!outputFile) {
-        throw std::runtime_error("Erreur lors de l'écriture dans le fichier : " + filePath);
+        throw std::runtime_error("Error writing to file : " + filePath);
     }
 
 }

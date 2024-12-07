@@ -26,42 +26,75 @@ void Interface::setDelay(int d) {
 }
 void Interface::typeGenerations() {
     int tempgen;
-    std::cout<<"\nType the number of generations wanted: ";
-    std::cin>>tempgen;
-    if (tempgen > 0) {
-        generations = tempgen;
-    } else {
-        std::cout<<"\nInvalid number of generations, try again: ";
-        std::cin>>tempgen;
+    bool correctgen = false;
+    std::cout << "\nType the number of generations wanted: ";
+    while (correctgen == false) {
+        // Check if the input is an integer
+        if (std::cin >> tempgen) {
+            // Check if the number of generations is positive
+            if (tempgen > 0) {
+                generations = tempgen;  // Set the number of generations
+                correctgen = true;
+                } else {
+                std::cout << "\nInvalid number of generations, must be greater than 0. Try again: ";
+            }
+        } else {
+            // If input is not an integer, display error message
+            std::cout << "\nInvalid input for the number of generations, please enter an int: ";
+
+            // Clear the error flag and ignore the invalid input
+            std::cin.clear();  // Clears the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Discards invalid input
+        }
     }
 }
+
 void Interface::typeMode() {
     int tempmode;
     bool correctmode = false;
-    std::cout<<"\nType the display number wanted, 0 for terminal, 1 for SFML: ";
-    std::cin>>tempmode;
+    std::cout << "\nType the display number wanted, 0 for terminal, 1 for SFML: ";
     while (correctmode == false) {
-        if (tempmode == 0 || tempmode == 1) {
-            mode = tempmode;
-            correctmode = true;
+        // Check if the input is an integer
+        if (std::cin >> tempmode) {
+            // If input is an integer, check if it's valid
+            if (tempmode == 0 || tempmode == 1) {
+                mode = tempmode;
+                correctmode = true;  // Exit the loop
+            } else {
+                std::cout << "\nInvalid number, try again: ";
+            }
         } else {
-            std::cout<<"\nInvalid number, try again: ";
-            std::cin>>tempmode;
+            // If input is not an int, display an error message
+            std::cout << "\nInvalid input for the number's mode, please enter 0 or 1: ";
+
+            // Clear the error flag and ignore the invalid input
+            std::cin.clear();  // Clears the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Discards invalid input
         }
     }
 }
 void Interface::typeDelay() {
     int delaytemp;
     bool correctdelay = false;
-    std::cout<<"\nType the delay between 2 iterations (in milliseconds): ";
-    std::cin >> delaytemp;
+    std::cout << "\nType the delay between 2 iterations (in milliseconds): ";
+
     while (correctdelay == false) {
-        if (delaytemp > 0) {
-            delay = delaytemp;
-            correctdelay = true;
+        // Check if the input is an int
+        if (std::cin >> delaytemp) {
+            // Check if the delay is a positive value
+            if (delaytemp > 0) {
+                delay = delaytemp;  // Set the delay value
+                correctdelay = true; // Input is valid, exit loop
+                break;  // Break out of the loop
+            } else {
+                std::cout << "\nInvalid input. Delay must be greater than 0. Try again: ";
+            }
         } else {
-            std::cout<<"\nInvalid input, try again: ";
-            std::cin >> delaytemp;
+            // If the input is not an int, display an error message
+            std::cout << "\nInvalid input for the delay, please enter an int: ";
+            // Clear the error flag and discard invalid input
+            std::cin.clear();  // Clears the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Discards the invalid input
         }
     }
 }

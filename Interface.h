@@ -20,11 +20,11 @@ public:
     void displaySFML(Grid &g, Save &s) const;
     int getGenerations() const;
     int getMode() const;
-    //Fonction pour set les valeurs des ints si jamais on les a déjà quelque part
+//Function to set int values if you already have them somewhere
     void setGenerations(int gen);
     void setMode(int m);
     void setDelay(int d);
-    //Fonction pour écrire les valeurs des ints
+    //Function to type the int values
     void typeGenerations();
     void typeMode();
     void typeDelay();

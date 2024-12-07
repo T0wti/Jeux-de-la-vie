@@ -18,7 +18,7 @@ public:
     void typeSaveFilePath();
     void setFilePath(std::string& filename);
     void typeFilePath();
-    // Fonction pour charger une grille depuis un fichier
+    // Function to load a grid from a file
     void initializeFromFile(Grid &g);
     void saveFile(Grid &g, int gen);
 };

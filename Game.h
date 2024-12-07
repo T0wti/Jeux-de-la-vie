@@ -4,24 +4,30 @@
 #include "Cell.h"
 #include "Rules.h"
 #include "Grid.h"
+#include "File_manager.h"
 #include <vector>
 #include <string>
 
-class Interface {
+class Game {
 protected:
     int generations;
     int mode;
+    int delay;
 public:
-    void redirectMode(Grid &g);
-    Interface();
-    void displayTerminal(Grid &g) const;
-    void displaySFML(Grid &g) const;
+    void redirectMode(Grid &g, File_manager &s);
+    Game();
+    void displayTerminal(Grid &g, File_manager &s) const;
+    void displaySFML(Grid &g, File_manager &s) const;
     int getGenerations() const;
     int getMode() const;
+//Function to set int values if you already have them somewhere
     void setGenerations(int gen);
     void setMode(int m);
+    void setDelay(int d);
+    //Function to type the int values
     void typeGenerations();
     void typeMode();
+    void typeDelay();
 };
 
 #endif // INTERFACE_H

@@ -33,8 +33,19 @@ void Interface::typeMode() {
     std::cin >> mode;
 }
 void Interface::typeDelay() {
+    int delaytemp;
+    bool correctdelay = false;
     std::cout<<"\nType the delay between 2 iterations (in milliseconds): ";
-    std::cin >> delay;
+    std::cin >> delaytemp;
+    while (correctdelay == false) {
+        if (delaytemp > 0) {
+            delay = delaytemp;
+            correctdelay = true;
+        } else {
+            std::cout<<"\nInvalid input, try again: ";
+            std::cin >> delaytemp;
+        }
+    }
 }
 
 void Interface::redirectMode(Grid &g, Save &s) {

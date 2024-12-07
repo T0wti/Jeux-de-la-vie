@@ -60,16 +60,16 @@ void Interface::displayTerminal(Grid &g, Save &s) const {
     std::cout << "Grid's size :  " << rows << "x" << cols << "\n";
 
     for (int i=0; i<generations; i++) {
-    // Parcours de la grille
+    // Go through the grid
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
             // Get cell's state and display it
             bool state = g.getGrid(i, j).getState();
             std::cout << (state ? "1" : "0") << " ";
         }
-        std::cout << "\n"; // Fin de ligne pour chaque ligne de la grille
+        std::cout << "\n"; // End of line for each grid line
     }
-        std::cout << "\n"; // Ligne vide après avoir affiché la grille
+        std::cout << "\n"; // Empty line after displaying the grid
         s.saveFile(g,i+1);
         g.update();
         std::this_thread::sleep_for(std::chrono::milliseconds(delay));
@@ -81,13 +81,13 @@ void Interface::displaySFML(Grid &g, Save &s) const {
 bool isWindowOpen = false;
 int it = 0;
 
-sf::RenderWindow window; // Déclaration en dehors du bloc conditionnel
+sf::RenderWindow window; // Declaration outside the conditional block
 
 
 if (!isWindowOpen) {
-    // Initialiser la fenêtre
+    // Init the window
     window.create(sf::VideoMode(g.getTotalGrid()[0].size() * g.getCellSize(),g.getTotalGrid().size() * g.getCellSize()), "Game of Life");
-    isWindowOpen = true; // Marquer qu'une fenêtre est ouverte
+    isWindowOpen = true; // Mark window open
 }
     while (window.isOpen()&& it<generations) {
         sf::Event event;
@@ -105,7 +105,7 @@ if (!isWindowOpen) {
             sf::RectangleShape cellShape(sf::Vector2f(g.getCellSize() - 1, g.getCellSize() - 1));
             cellShape.setPosition(j * g.getCellSize(), i * g.getCellSize());
 
-            // Appliquer une couleur spéciale pour les obstacles
+            // Apply a special color for obstacles
             if (g.getGrid(i, j).getIsObstacle()) {
                 cellShape.setFillColor(g.getGrid(i, j).getState() ? sf::Color(150, 150, 150) : sf::Color(100, 100, 100));
             } else {

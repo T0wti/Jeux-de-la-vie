@@ -25,12 +25,30 @@ void Interface::setDelay(int d) {
     delay = d;
 }
 void Interface::typeGenerations() {
+    int tempgen;
     std::cout<<"\nType the number of generations wanted: ";
-    std::cin>>generations;
+    std::cin>>tempgen;
+    if (tempgen > 0) {
+        generations = tempgen;
+    } else {
+        std::cout<<"\nInvalid number of generations, try again: ";
+        std::cin>>tempgen;
+    }
 }
 void Interface::typeMode() {
+    int tempmode;
+    bool correctmode = false;
     std::cout<<"\nType the display number wanted, 0 for terminal, 1 for SFML: ";
-    std::cin >> mode;
+    std::cin>>tempmode;
+    while (correctmode == false) {
+        if (tempmode == 0 || tempmode == 1) {
+            mode = tempmode;
+            correctmode = true;
+        } else {
+            std::cout<<"\nInvalid number, try again: ";
+            std::cin>>tempmode;
+        }
+    }
 }
 void Interface::typeDelay() {
     int delaytemp;

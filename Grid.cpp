@@ -9,7 +9,7 @@ Grid::Grid() : rows(0), cols(0), cellSize(20), grid() {} // Default builder
 Grid::Grid(int r, int c) : rows(r), cols(c), cellSize(20), grid(r, std::vector<Cell>(c)) {}
 
 #include <fstream>
-#include <stdexcept> // Pour gérer les exceptio
+#include <stdexcept> 
 int Grid::getRows() {
     return rows;
 }
@@ -47,8 +47,8 @@ int Grid::countAliveNeighbors(int x, int y) const {
             if (dx == 0 && dy == 0) continue; // Ignore the cell itself
 
             // Coordinate calculation in toroidal mode
-            int nx = (x + dx + rows) % rows; // % rows pour boucler verticalement
-            int ny = (y + dy + cols) % cols; // % cols pour boucler horizontalement
+            int nx = (x + dx + rows) % rows; 
+            int ny = (y + dy + cols) % cols; 
 
             // Check if the neighbor is alive
             if (grid[nx][ny].getState()) {
@@ -72,7 +72,7 @@ void Grid::update() {
             }
 
             int aliveNeighbors = countAliveNeighbors(i, j); // Number of alive neighbors
-            bool newState = rule.applyRules(grid[i][j], aliveNeighbors); // Applay the rules
+            bool newState = rule.applyRules(grid[i][j], aliveNeighbors); // Apply the rules
             newGrid[i][j].setAlive(newState); // Update the new state in the new grid
         }
     }

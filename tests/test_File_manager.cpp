@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 #include "../File_manager.h"
+#include <filesystem>
 #include <fstream>
 #include <stdexcept>
 #include <sstream>
@@ -66,7 +67,7 @@ TEST(FileManagerTest, SaveFileTest) {
     File_manager fileManager;
 
     // Set the directory path where the file will be saved
-    std::string directoryPath = "C:/Users/diego/CLionProjects/Jeux-de-la-vie/tests/test_save";  // Save in the current directory
+    std::string directoryPath = "../../tests/test_save";  // Save in the current directory
     fileManager.setSaveFilePath(directoryPath);
 
     // Save the grid to a file

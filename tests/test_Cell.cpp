@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include "../Cell.h"
 
-// Test du constructeur Cell
+// Try the Cell's constructor
 TEST(CellTest, ConstructorTest) {
     // Initialisation d'une cellule avec état "vivant" et sans obstacle
     Cell cell(true, false);
@@ -67,4 +67,3 @@ TEST(CellTest, SetIsObstacleTest) {
     cell.setIsObstacle(false);
     EXPECT_FALSE(cell.getIsObstacle());  // La cellule ne doit plus être un obstacle
 }
-

@@ -11,9 +11,10 @@ protected:
     std::vector<std::vector<Cell>> grid;
     int rows, cols, cellSize;
 
-    int countAliveNeighbors(int x, int y) const;
+    //int countAliveNeighbors(int x, int y) const; -> go in public so we can do the unit test of it
 
 public:
+    int countAliveNeighbors(int x, int y) const;
     Grid();
     Grid(int r, int c);
     void setRows(int r);

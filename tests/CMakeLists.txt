@@ -10,6 +10,7 @@ add_executable(tests
         test_Game.cpp
         ../Game.cpp
         test_Rules.cpp
+        test_Grid.cpp
 )
 
 # Link Google Test and the main code

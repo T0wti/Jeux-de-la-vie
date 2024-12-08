@@ -15,6 +15,9 @@ int Game::getGenerations() const {
 int Game::getMode() const {
     return mode;
 }
+int Game::getDelay() const {
+    return delay;
+}
 void Game::setGenerations(int gen) {
     generations = gen;
 }

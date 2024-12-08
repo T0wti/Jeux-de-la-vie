@@ -20,6 +20,7 @@ public:
     void displaySFML(Grid &g, File_manager &s) const;
     int getGenerations() const;
     int getMode() const;
+    int getDelay() const;
 //Function to set int values if you already have them somewhere
     void setGenerations(int gen);
     void setMode(int m);

@@ -3,67 +3,67 @@
 
 // Try the Cell's constructor
 TEST(CellTest, ConstructorTest) {
-    // Initialisation d'une cellule avec état "vivant" et sans obstacle
+    // Cell initialization with “live” state and no obstacles
     Cell cell(true, false);
 
-    // Vérification des valeurs des attributs après la construction
-    EXPECT_TRUE(cell.getState());    // La cellule doit être vivante
-    EXPECT_FALSE(cell.getIsObstacle()); // La cellule ne doit pas être un obstacle
+    // Checking attribute values after construction
+    EXPECT_TRUE(cell.getState());    // The Cell should be alive
+    EXPECT_FALSE(cell.getIsObstacle()); // The cell shouldn't be an obstacle
 }
 
-// Test de setAlive
+// Test of setAlive
 TEST(CellTest, SetAliveTest) {
-    Cell cell(false, false);  // Cellule morte et sans obstacle
+    Cell cell(false, false);  // Make a non obstacle dead cell
 
-    // La cellule doit être morte initialement
+    // The cell should be dead in first place
     EXPECT_FALSE(cell.getState());
 
-    // Mettre la cellule vivante
+    // Set the cell to alive state
     cell.setAlive(true);
-    EXPECT_TRUE(cell.getState());  // La cellule doit être vivante
+    EXPECT_TRUE(cell.getState());  // The cell should be alive
 
-    // Mettre la cellule morte
+    // Set the cell to dead state
     cell.setAlive(false);
-    EXPECT_FALSE(cell.getState());  // La cellule doit être morte
+    EXPECT_FALSE(cell.getState());  // The cell should be dead
 }
 
-// Test de setAlive avec un obstacle
+// Test setAlive with an obstacle
 TEST(CellTest, SetAliveWithObstacleTest) {
-    Cell cell(false, true);  // Cellule morte et obstacle
+    Cell cell(false, true);  // The cell should be an obstacle
 
-    // La cellule doit être morte et un obstacle
+    //The cell should be dead and an obstacle
     EXPECT_FALSE(cell.getState());
     EXPECT_TRUE(cell.getIsObstacle());
 
-    // Tentons de changer l'état à vivant, mais la cellule est un obstacle
+    // We try to change the state to alive, but the cell is an obstacle
     cell.setAlive(true);
-    EXPECT_FALSE(cell.getState());  // La cellule doit rester morte, car c'est un obstacle
+    EXPECT_FALSE(cell.getState());  // The cell should remain dead, she's an obstacle
 }
 
-// Test de getIsObstacle
+// Test of getIsObstacle
 TEST(CellTest, GetIsObstacleTest) {
-    Cell cell(false, true);  // Cellule morte et obstacle
+    Cell cell(false, true);  // The cell should be dead and an obstacle
 
-    // Vérification de l'état de l'obstacle
+    // Check if the cell is an obstacle
     EXPECT_TRUE(cell.getIsObstacle());
 
-    // Changer l'état de l'obstacle
+    // Change the state of the obstacle
     cell.setIsObstacle(false);
     EXPECT_FALSE(cell.getIsObstacle());
 }
 
-// Test de setIsObstacle
+// Test of setIsObstacle
 TEST(CellTest, SetIsObstacleTest) {
-    Cell cell(false, false);  // Cellule morte et sans obstacle
+    Cell cell(false, false);  // Dead cell and not an obstacle
 
-    // La cellule ne doit pas être un obstacle initialement
+    // The cell shouldn't be an obstacle in the first place
     EXPECT_FALSE(cell.getIsObstacle());
 
-    // Mettre la cellule en obstacle
+    // Set the cell to obstacle
     cell.setIsObstacle(true);
-    EXPECT_TRUE(cell.getIsObstacle());  // La cellule doit maintenant être un obstacle
+    EXPECT_TRUE(cell.getIsObstacle());  // The cell should now be an obstacle
 
-    // Retirer l'obstacle
+    // Remove the obstacle
     cell.setIsObstacle(false);
-    EXPECT_FALSE(cell.getIsObstacle());  // La cellule ne doit plus être un obstacle
+    EXPECT_FALSE(cell.getIsObstacle());  // The cell should now not be an obstacle
 }

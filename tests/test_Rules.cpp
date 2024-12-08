@@ -2,42 +2,42 @@
 #include "Rules.h"
 #include "Cell.h"
 
-// Test du constructeur Rules (initialisation de l'état de la cellule)
+// Rules constructor test (initialization of cell status)
 TEST(RulesTest, TestConstructor) {
-    // Crée une cellule avec état 'true'
+    // Make a cell with "true" state
     Rules rules(true);
-    EXPECT_TRUE(rules.getState());  // Vérifie que l'état de la cellule est correct (true)
+    EXPECT_TRUE(rules.getState());  // Check if the cell's state is "true"
 
-    // Crée une cellule avec état 'false'
+    // Make a cell with "false" state
     rules = Rules(false);
-    EXPECT_FALSE(rules.getState());  // Vérifie que l'état de la cellule est correct (false)
+    EXPECT_FALSE(rules.getState());  // Check if the cell's state is false
 }
 
-// Test de la méthode applyRules pour une cellule vivante (state = true)
+// Test of the applyRules method for a living cell (state = true)
 TEST(RulesTest, TestApplyRulesCellAlive) {
-    Rules rules(true);  // Crée une règle avec une cellule vivante
-    Cell cell(true);  // Crée une cellule vivante
+    Rules rules(true);  // Make a new rules with an alive cell
+    Cell cell(true);  // Make an alive cell
 
-    // Test de la méthode applyRules avec un nombre de voisins vivants de 2 (la cellule doit rester vivante)
+    // Test the applyRules method with a number of living neighbors of 2 (the cell must remain alive).
     EXPECT_TRUE(rules.applyRules(cell, 2));
 
-    // Test de la méthode applyRules avec un nombre de voisins vivants de 3 (la cellule doit rester vivante)
+    // Test the applyRules method with a number of living neighbors of 3 (the cell must remain alive).
     EXPECT_TRUE(rules.applyRules(cell, 3));
 
-    // Test de la méthode applyRules avec un nombre de voisins vivants différent de 2 ou 3 (la cellule doit mourir)
+    // Test the applyRules method with a number of living neighbors other than 2 or 3 (the cell must die).
     EXPECT_FALSE(rules.applyRules(cell, 1));
     EXPECT_FALSE(rules.applyRules(cell, 4));
 }
 
-// Test de la méthode applyRules pour une cellule morte (state = false)
-TEST(RulesTest, TestApplyRulesCellDead) {
-    Rules rules(false);  // Crée une règle avec une cellule morte
-    Cell cell(false);  // Crée une cellule morte
+// Test the applyRules method for a dead cell (state = false)
+    TEST(RulesTest, TestApplyRulesCellDead) {
+    Rules rules(false);  // Make a rule with a dead cell
+    Cell cell(false);  // Make a dead cell
 
-    // Test de la méthode applyRules avec 3 voisins vivants (la cellule doit devenir vivante)
+    // ApplyRules test with 3 living neighbors (the cell must become alive)
     EXPECT_TRUE(rules.applyRules(cell, 3));
 
-    // Test de la méthode applyRules avec un nombre de voisins vivants différent de 3 (la cellule doit rester morte)
+    // Test the applyRules method with a number of living neighbors other than 3 (the cell must remain dead).
     EXPECT_FALSE(rules.applyRules(cell, 1));
     EXPECT_FALSE(rules.applyRules(cell, 2));
     EXPECT_FALSE(rules.applyRules(cell, 4));

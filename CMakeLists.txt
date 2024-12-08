@@ -33,6 +33,6 @@ add_executable(Jeux-de-la-vie
         Game.h
 )
 
-target_link_libraries(Jeux-de-la-vie sfml-graphics)
+target_link_libraries(Jeux-de-la-vie sfml-graphics sfml-window sfml-system)
 
 add_subdirectory(tests)

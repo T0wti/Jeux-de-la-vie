@@ -7,10 +7,19 @@ add_executable(tests
         ../File_manager.cpp
         ../Grid.cpp
         ../Rules.cpp
+        test_Game.cpp
+        ../Game.cpp
+        test_Rules.cpp
 )
 
 # Link Google Test and the main code
-target_link_libraries(tests gtest gtest_main)
+target_link_libraries(tests
+        gtest
+        gtest_main
+        sfml-graphics
+        sfml-window
+        sfml-system
+)
 
 # Enable the tests
 include(GoogleTest)

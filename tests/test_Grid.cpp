@@ -7,8 +7,8 @@
 TEST(GridTest, DefaultConstructor) {
     Grid grid;
 
-    EXPECT_EQ(grid.getRows(), 0);
-    EXPECT_EQ(grid.getCols(), 0);
+    EXPECT_EQ(grid.getRows(), 1);
+    EXPECT_EQ(grid.getCols(), 1);
 }
 
 // Check the builder with settings

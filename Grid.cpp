@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <ctime>
 
-Grid::Grid() : rows(0), cols(0), cellSize(20), grid() {} // Default builder
+Grid::Grid() : rows(1), cols(1), cellSize(20), grid() {} // Default builder
 Grid::Grid(int r, int c) : rows(r), cols(c), cellSize(20), grid(r, std::vector<Cell>(c)) {}
 
 #include <fstream>

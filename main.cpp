@@ -4,7 +4,7 @@
 
 int main() {
     Game G;
-    Grid gameGrid(5,5); // The size will be set according to the initialization file
+    Grid gameGrid;
     File_manager saver;
 
     G.typeMode();
